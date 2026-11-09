@@ -91,3 +91,44 @@ if (contactForm) {
     window.location.href = `mailto:aravkr2007@gmail.com?subject=${subject}&body=${body}`;
   });
 }
+
+
+/* =========================
+   LIGHT / DARK THEME
+========================= */
+
+const themeToggle = document.getElementById("theme-toggle");
+
+// Get saved theme or use dark theme by default
+const savedTheme = localStorage.getItem("theme") || "dark";
+
+// Apply theme when page loads
+document.documentElement.setAttribute("data-theme", savedTheme);
+
+// Update button icon
+function updateThemeButton(theme) {
+  if (theme === "dark") {
+    themeToggle.textContent = "☀️";
+    themeToggle.setAttribute("aria-label", "Switch to light theme");
+  } else {
+    themeToggle.textContent = "🌙";
+    themeToggle.setAttribute("aria-label", "Switch to dark theme");
+  }
+}
+
+// Set initial button icon
+updateThemeButton(savedTheme);
+
+// Switch theme on button click
+themeToggle.addEventListener("click", () => {
+  const currentTheme =
+    document.documentElement.getAttribute("data-theme");
+
+  const newTheme = currentTheme === "dark" ? "light" : "dark";
+
+  document.documentElement.setAttribute("data-theme", newTheme);
+
+  localStorage.setItem("theme", newTheme);
+
+  updateThemeButton(newTheme);
+});
